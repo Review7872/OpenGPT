@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Error</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .error-container {
+            max-width: 400px;
+            margin: auto;
+            margin-top: 100px;
+            padding: 20px;
+            border: 1px solid #d6d6d6;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="error-container">
+        <h2 class="text-danger">错误</h2>
+        <p class="text-muted">由于您提供的信息有误，请检查并重新填写。</p>
+
+        <!-- 错误信息可以根据具体情况进行个性化显示 -->
+        <div class="alert alert-danger" role="alert">
+            请检查您输入的信息，并重新尝试。
+        </div>
+
+        <!-- 返回登录页面的按钮 -->
+        <a href="/login.html" class="btn btn-primary">返回登录</a>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天界面</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* 自定义样式 */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .chat-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: auto; /* 自动滚动 */
+            height: 400px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            overflow-wrap: break-word; /* 长文本换行 */
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            max-width: 70%;
+            word-wrap: break-word; /* 长文本换行 */
+        }
+
+        .ai-message {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            max-width: 70%;
+            word-wrap: break-word; /* 长文本换行 */
+        }
+
+        .chat-input {
+            width: calc(100% - 85px);
+            margin-right: 10px;
+        }
+
+        .send-button {
+            width: 80px;
+        }
+
+        .return-button {
+            margin-top: 10px;
+        }
+        #uuidInput {
+            display: none;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: scroll;
+            height: 400px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            clear: both;
+            overflow: auto;
+        }
+        .user-message {
+            float: left;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            max-width: 70%;
+        }
+        .ai-message {
+            float: right;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            max-width: 70%;
+        }
+        .chat-input {
+            width: calc(100% - 85px);
+            float: left;
+            margin-right: 10px;
+        }
+        .send-button {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chat-container" id="chatContainer">
+                <div th:each="item:${msgTopic}">
+                    <div th:if="${item.role==1}">
+                        <div class="chat-message ai-message" th:text="${item.content}"></div>
+                    </div>
+                    <div th:if="${item.role==2}">
+                        <div class="chat-message user-message" th:text="${item.content}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <form id="messageForm">
+                <div class="input-group">
+                    <input type="text" class="form-control chat-input" id="messageInput" placeholder="请输入消息...">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary send-button">发送</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-secondary return-button" onclick="window.location.href='/main'">返回主页面</button>
+        </div>
+    </div>
+    <h1 id="uuidInput" th:text="${uuid}"></h1>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to scroll chat container to bottom
+        function scrollChatToBottom() {
+            var chatContainer = document.getElementById("chatContainer");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Event listener for message form submission
+        $("#messageForm").submit(function(e) {
+            e.preventDefault();
+            var message = $("#messageInput").val();
+            if (message.trim() === "") return;
+
+            // Append user message to chat container
+            $("#chatContainer").append('<div class="chat-message ai-message">' + message + '</div>');
+
+            // Scroll to bottom of chat container
+            scrollChatToBottom();
+
+            var uuid = document.getElementById('uuidInput').textContent;
+            console.log(uuid);
+
+            // 构造请求体数据
+            const requestData = {
+             content: message, uuid: uuid
+            }
+
+            // 发送 AJAX 请求
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8080/llama/chat');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                   window.location.href = '/chat?uuid='+uuid;
+                } else {
+                    window.location.href = '/chat?uuid='+uuid;
+                }
+            };
+            xhr.onerror = function () {
+                // 请求失败，转发到 /loginInfoError.html
+                window.location.href = '/chat?uuid='+uuid;
+            };
+            xhr.send(JSON.stringify(requestData));
+
+            // Clear message input
+            $("#messageInput").val("");
+        });
+
+        // Scroll chat container to bottom on page load
+        scrollChatToBottom();
+    });
+</script>
+</body>
+</html>

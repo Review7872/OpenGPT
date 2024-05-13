@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找回密码</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        .card-header {
+            text-align: center;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-check {
+            margin-bottom: 10px;
+        }
+        .btn {
+            width: 100%;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            找回密码
+        </div>
+        <div class="card-body">
+            <form action="/user/reReg" method="post" id="reReg-form">
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" class="form-control" id="email" placeholder="请输入邮箱" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" placeholder="请输入新密码" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">找回</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('reReg-form');
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // 阻止默认的表单提交行为
+
+            // 通过 AJAX 或其他方式提交表单数据给服务器
+            // 这里使用模拟的方式，假设用户名和密码分别为 "admin" 和 "password"
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // 构造请求体数据
+            const requestData = {
+                email: email,
+                password: password
+            };
+
+            // 发送 AJAX 请求
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8080/user/reReg');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const responseData = JSON.parse(xhr.responseText);
+                    if (responseData === 1) {
+                        window.location.href = '/login.html';
+                    } else {
+                        window.location.href = '/loginInfoError.html';
+                    }
+                } else {
+                    window.location.href = '/loginInfoError.html';
+                }
+            };
+            xhr.onerror = function () {
+                // 请求失败，转发到 /loginInfoError.html
+                window.location.href = '/loginInfoError.html';
+            };
+            xhr.send(JSON.stringify(requestData));
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
