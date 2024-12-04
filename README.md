@@ -71,3 +71,7 @@ public final Flux<T> doOnComplete(Runnable onComplete) {
 # 7 重构项目
 
 2024年12月4日，重构了此项目，使用了SpringWebFlux框架、JDK21虚拟线程、本地缓存caffeine、并且使用了基于qwen2-8b微调后的新模型模型——扁鹊，更加规范的代码风格等等。
+
+# 8 接口文档
+
+**[接口文档](https://apifox.com/apidoc/shared-27001307-aab2-4972-9d42-54f21970ce72)**
