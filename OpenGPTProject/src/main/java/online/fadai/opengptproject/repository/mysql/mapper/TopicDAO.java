@@ -1,4 +1,4 @@
-package online.fadai.opengptproject.repository.mysql.dao;
+package online.fadai.opengptproject.repository.mysql.mapper;
 
 
 import online.fadai.opengptproject.repository.mysql.pojo.MsgTopic;

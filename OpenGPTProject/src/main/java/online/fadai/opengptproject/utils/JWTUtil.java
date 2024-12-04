@@ -42,6 +42,7 @@ public class JWTUtil {
                 .setClaims(claims)
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .signWith(SIGNATURE_ALGORITHM, secret)
                 .compact();
     }

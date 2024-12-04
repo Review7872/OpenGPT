@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import online.fadai.opengptproject.exception.ModelInvalidException;
 
+import java.util.List;
+
 @Getter
 @RequiredArgsConstructor
 public enum ModelType {
@@ -48,5 +50,8 @@ public enum ModelType {
         throw new ModelInvalidException();
     }
 
+    public static List<String> getModelNameList() {
+        return List.of(QWEN.modelName, BIANQUE.modelName);
+    }
 }
 

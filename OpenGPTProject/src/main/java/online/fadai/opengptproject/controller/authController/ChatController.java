@@ -49,4 +49,8 @@ public class ChatController {
         topicService.updateSee(userInfo.getUsername(), chatRequest.getUuid());
         return ResultUtil.success();
     }
+    @GetMapping("/model")
+    public Result<List<String>> getModel(ServerWebExchange exchange) {
+        return ResultUtil.success(ModelType.getModelNameList());
+    }
 }

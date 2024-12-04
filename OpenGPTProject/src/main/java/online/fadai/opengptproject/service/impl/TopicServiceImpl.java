@@ -5,7 +5,7 @@ import online.fadai.opengptproject.client.OllamaAPI;
 import online.fadai.opengptproject.dto.ChatMsgResponse;
 import online.fadai.opengptproject.enums.ModelType;
 import online.fadai.opengptproject.exception.NoCauseException;
-import online.fadai.opengptproject.repository.mysql.dao.TopicDAO;
+import online.fadai.opengptproject.repository.mysql.mapper.TopicDAO;
 import online.fadai.opengptproject.repository.mysql.pojo.MsgTopic;
 import online.fadai.opengptproject.service.TopicService;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import online.fadai.opengptproject.exception.NotUniqueException;
 import online.fadai.opengptproject.exception.PasswordException;
 import online.fadai.opengptproject.exception.UsernameException;
-import online.fadai.opengptproject.repository.mysql.dao.UserDao;
+import online.fadai.opengptproject.repository.mysql.mapper.UserDao;
 import online.fadai.opengptproject.repository.mysql.pojo.UserInfo;
 import online.fadai.opengptproject.service.UserService;
 import online.fadai.opengptproject.utils.JWTUtil;

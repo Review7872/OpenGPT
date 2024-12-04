@@ -2,7 +2,7 @@ package online.fadai.opengptproject.service.impl;
 
 import jakarta.annotation.Resource;
 import online.fadai.opengptproject.enums.RoleType;
-import online.fadai.opengptproject.repository.es.dao.MsgIndexRepository;
+import online.fadai.opengptproject.repository.es.mapper.MsgIndexRepository;
 import online.fadai.opengptproject.repository.es.pojo.MsgIndex;
 import online.fadai.opengptproject.service.MsgService;
 import org.springframework.stereotype.Service;
